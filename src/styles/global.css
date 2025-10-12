@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Colors for Tailwind v4 */
+@theme {
+  --color-reishy-red: #61072d;
+  --color-kushi-blue: #0d3862;
+  --color-rabata-flame: #f37043;
+  --color-sage: #5f8683;
+  --color-zen-shadow: #cec1a7;
+  --color-zen-light: #e4dcca;
+  --color-primary: #61072d;
+  --color-secondary: #0d3862;
+  --color-accent: #f37043;
+  --color-neutral: #5f8683;
+  --color-background: #e4dcca;
+  --color-background-dark: #cec1a7;
+  --font-heading: "JapaneseStyle", "Noto Sans JP", "Hiragino Sans", "Yu Gothic",
+    "Meiryo", sans-serif;
+  --font-body: "Urbanist", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Custom Japanese Font */
+@font-face {
+  font-family: "JapaneseStyle";
+  src: url("/fonts/JapaneseStyleFont.ttf") format("truetype");
+  /* src: url("/fonts/RightmanSignature.otf") format("truetype"); */
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Remove default browser margins and padding */
 * {
   margin: 0;
@@ -12,9 +42,40 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: var(--font-body);
 }
 
 html {
   margin: 0;
   padding: 0;
+}
+
+/* Remove mobile tap highlight and focus outline */
+button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:active {
+  outline: none;
+}
+
+/* Urbanist font (single weight) */
+@font-face {
+  font-family: "Urbanist";
+  src: url("/fonts/Urbanist.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
 }

@@ -44,11 +44,24 @@ This is a modern Gatsby site built with Tailwind CSS and configured for static s
 
 ### Styling Approach
 
-The project uses a **hybrid styling pattern**:
+The project uses a **Tailwind-first styling pattern**:
 
-- **Tailwind CSS**: Available via `src/styles/global.css` for utility classes
-- **Inline styles**: Used extensively in existing components (see `src/pages/index.js` for patterns)
+- **Tailwind CSS ONLY**: Always use Tailwind utility classes for all styling
+- **No inline styles**: Avoid inline styles unless absolutely necessary for dynamic values
+- **Custom colors**: Use branded colors from `src/styles/colors.js` with Tailwind classes
+- **Responsive design**: Use Tailwind's responsive prefixes (`sm:`, `md:`, `lg:`, `xl:`)
+- **Component classes**: Create reusable component classes in `src/styles/global.css` if needed
 - Global styles imported in `gatsby-browser.js`
+
+**Rule**: If it can be done with Tailwind classes, use Tailwind classes. Only use inline styles for truly dynamic values that change based on state or props.
+
+### Brand Colors Integration
+
+Use the predefined brand colors from `src/styles/colors.js` with Tailwind:
+
+- Import: `import { colors } from '../styles/colors'`
+- Tailwind classes: `bg-reishy-red`, `text-kushi-blue`, `border-sage`, etc.
+- Dynamic colors: `style={{ color: colors.rabataFlame }}` only when conditional
 
 ### Configuration Files
 

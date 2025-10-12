@@ -1,73 +1,115 @@
-import React from "react";
-// import Threads from "../components/Threads";
-import Waves from "../components/Waves/waves";
+import React, { useState } from "react";
+import GlassSurface from "../components/GlassSurface/GlassSurface";
+import HomePage from "../components/HomePage";
+import AboutPage from "../components/AboutPage";
+import MenuPage from "../components/MenuPage";
+import { colors } from "../styles/colors";
 
 const IndexPage = () => {
+  const [currentPage, setCurrentPage] = useState("home");
+
   return (
-    <main className="relative w-full h-screen overflow-hidden">
-      {/* Layer 0: Background Color */}
-      <div
-        className="absolute inset-0 w-full h-full"
-        style={{
-          backgroundColor: "#E4DCCA",
-          width: "100vw",
-          height: "100vh",
-        }}
-      />
+    <main className="relative w-full min-h-screen">
+      {/* Conditionally Render Page Components */}
+      {currentPage === "home" && <HomePage />}
+      {currentPage === "about" && <AboutPage />}
+      {currentPage === "menu" && <MenuPage />}
 
-      {/* Layer 0: Background Image - Commented Out */}
-      {/* <div className="absolute inset-0 w-full h-full">
-        <img
-          src="/home/background.jpg"
-          alt="Background"
-          className="w-full h-full object-cover"
-        />
-      </div> */}
-      {/* Threads Component - Wave Effect on Top */}
-      <div
-        className="absolute inset-0 w-full h-full"
-        style={{ width: "100vw", height: "100vh" }}
+      {/* Glass Navigation Bar - Fixed at Top */}
+      <nav
+        className="fixed left-1/2 -translate-x-1/2 z-40 pointer-events-auto"
+        style={{ top: "1.3rem" }}
       >
-        <Waves
-          lineColor="#C9C0A9"
-          backgroundColor="rgba(255, 255, 255, 0.2)"
-          waveSpeedX={0.02}
-          waveSpeedY={0.02}
-          waveAmpX={40}
-          waveAmpY={20}
-          friction={0.9}
-          tension={0.01}
-          maxCursorMove={120}
-          xGap={10}
-          yGap={10}
-        />
-      </div>
-
-      {/* Layer 1: First SVG */}
-      <div className="absolute inset-0 w-full h-full">
-        <img
-          src="/home/layer1.svg"
-          alt="Layer 1"
-          className="w-full h-full object-cover"
-          style={{ width: "100vw", height: "100vh" }}
-        />
-      </div>
-
-      {/* Layer 2: Second SVG */}
-      <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-        <img
-          src="/home/layer2.svg"
-          alt="Layer 2"
-          className="w-1/2 h-1/2 object-contain"
-        />
-      </div>
-
-      {/* Optional: Content overlay area for future text/navigation */}
-      <div className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none">
-        <div className="text-center z-10">
-          {/* Future content can go here - restaurant name, navigation, etc. */}
-        </div>
-      </div>
+        <GlassSurface
+          width="auto"
+          height={60}
+          borderRadius={50}
+          brightness={50}
+          opacity={0.93}
+          blur={11}
+          className="px-8"
+          saturation={1}
+          borderWidth={0.07}
+          displace={0.5}
+          distortionScale={-180}
+          redOffset={0}
+          greenOffset={0}
+          blueOffset={0}
+          backgroundOpacity={0.3}
+        >
+          <div
+            className="flex items-center h-full "
+            style={{ gap: "40px", padding: "0 20px" }}
+          >
+            <button
+              onClick={() => setCurrentPage("home")}
+              className="bg-transparent border-none text-[1.3rem] cursor-pointer px-4 py-2 transition-all duration-300 ease-in-out tracking-wide"
+              style={{
+                color:
+                  currentPage === "home"
+                    ? colors.rabataFlame
+                    : colors.kushiBlue,
+                fontWeight: "400",
+                fontFamily:
+                  "'JapaneseStyle', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+              }}
+              onMouseEnter={(e) => (e.target.style.color = colors.rabataFlame)}
+              onMouseLeave={(e) =>
+                (e.target.style.color =
+                  currentPage === "home"
+                    ? colors.rabataFlame
+                    : colors.kushiBlue)
+              }
+            >
+              Home
+            </button>
+            <button
+              onClick={() => setCurrentPage("about")}
+              className="bg-transparent border-none text-[1.3rem] cursor-pointer px-4 py-2 transition-all duration-300 ease-in-out tracking-wide"
+              style={{
+                color:
+                  currentPage === "about"
+                    ? colors.rabataFlame
+                    : colors.kushiBlue,
+                fontWeight: "400",
+                fontFamily:
+                  "'JapaneseStyle', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+              }}
+              onMouseEnter={(e) => (e.target.style.color = colors.rabataFlame)}
+              onMouseLeave={(e) =>
+                (e.target.style.color =
+                  currentPage === "about"
+                    ? colors.rabataFlame
+                    : colors.kushiBlue)
+              }
+            >
+              About
+            </button>
+            <button
+              onClick={() => setCurrentPage("menu")}
+              className="bg-transparent border-none text-[1.3rem] cursor-pointer px-4 py-2 transition-all duration-300 ease-in-out tracking-wide"
+              style={{
+                color:
+                  currentPage === "menu"
+                    ? colors.rabataFlame
+                    : colors.kushiBlue,
+                fontWeight: "400",
+                fontFamily:
+                  "'JapaneseStyle', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+              }}
+              onMouseEnter={(e) => (e.target.style.color = colors.rabataFlame)}
+              onMouseLeave={(e) =>
+                (e.target.style.color =
+                  currentPage === "menu"
+                    ? colors.rabataFlame
+                    : colors.kushiBlue)
+              }
+            >
+              Menu
+            </button>
+          </div>
+        </GlassSurface>
+      </nav>
     </main>
   );
 };
