@@ -25,6 +25,7 @@ const HomePage = () => {
   ];
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -121,7 +122,7 @@ const HomePage = () => {
         <div
           className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
           style={{
-            transform: `translateY(${(scrollY - window.innerHeight) * 0.2}px)`,
+            transform: `translateY(${(scrollY - (typeof window !== "undefined" ? window.innerHeight : 0)) * 0.2}px)`,
             transition: "transform 0.1s ease-out",
           }}
         >
@@ -137,7 +138,7 @@ const HomePage = () => {
           className="flex flex-col md:flex-row z-20"
           style={{
             height: "calc(100vh - 100px)",
-            transform: `translateY(${(scrollY - window.innerHeight) * 0.15}px)`,
+            transform: `translateY(${(scrollY - (typeof window !== "undefined" ? window.innerHeight : 0)) * 0.15}px)`,
             transition: "transform 0.1s ease-out",
           }}
         >
@@ -148,7 +149,7 @@ const HomePage = () => {
               sensitivity={300}
               sendToBackOnClick={false}
               cardDimensions={
-                window.innerWidth < 768
+                typeof window !== "undefined" && window.innerWidth < 768
                   ? { width: "80vw", height: "40vh" }
                   : { width: "30vw", height: "50vh" }
               }
@@ -182,7 +183,7 @@ const HomePage = () => {
           <div 
             className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
             style={{
-              transform: `translateY(${(scrollY - window.innerHeight * 2) * 0.1}px)`,
+              transform: `translateY(${(scrollY - (typeof window !== "undefined" ? window.innerHeight : 0) * 2) * 0.1}px)`,
               transition: "transform 0.1s ease-out",
             }}
           >
@@ -197,7 +198,7 @@ const HomePage = () => {
           <div 
             className="absolute top-0 right-0 w-[60%] md:w-[40%] z-10"
             style={{
-              transform: `translate(50%, ${(scrollY - window.innerHeight * 2) * 0.05}px) rotate(${(scrollY - window.innerHeight * 2) * 0.15}deg)`,
+              transform: `translate(50%, ${(scrollY - (typeof window !== "undefined" ? window.innerHeight : 0) * 2) * 0.05}px) rotate(${(scrollY - (typeof window !== "undefined" ? window.innerHeight : 0) * 2) * 0.15}deg)`,
               transition: "transform 0.05s linear",
             }}
           >
@@ -213,9 +214,10 @@ const HomePage = () => {
 
           {/* Calculate scroll progress for this section */}
           {(() => {
-            const sectionStart = window.innerHeight * 2;
+            const windowHeight = typeof window !== "undefined" ? window.innerHeight : 0;
+            const sectionStart = windowHeight * 2;
             const sectionScroll = scrollY - sectionStart;
-            const sectionHeight = window.innerHeight * 4;
+            const sectionHeight = windowHeight * 4;
             const progress = Math.max(0, Math.min(1, sectionScroll / sectionHeight));
             
             // Each text gets more space - transitions happen at 0.25, 0.5, 0.75
