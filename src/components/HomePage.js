@@ -48,7 +48,7 @@ const HomePage = () => {
 
         {/* Waves Component - Subtle parallax */}
         <div
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full z-10"
           style={{
             width: "100vw",
             height: "100vh",
@@ -73,32 +73,32 @@ const HomePage = () => {
 
         {/* Layer 1: First SVG - Medium parallax */}
         <div
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full z-0"
           style={{
             transform: `translateY(${scrollY * 0.4}px)`,
             transition: "transform 0.1s ease-out",
           }}
         >
           <img
-            src="/home/layer1.svg"
+            src="/home/bg-layer.svg"
             alt="Layer 1"
             className="w-full h-full object-cover"
-            style={{ width: "100vw", height: "100vh" }}
+            // style={{ width: "100vw", height: "100vh" }}
           />
         </div>
 
         {/* Layer 2: Second SVG - Faster parallax */}
         <div
-          className="absolute inset-0 w-full h-full flex items-center justify-center"
+          className="absolute inset-0 w-full h-full flex items-center justify-center z-30"
           style={{
             transform: `translateY(${scrollY * 0.6}px)`,
             transition: "transform 0.1s ease-out",
           }}
         >
           <img
-            src="/home/layer2.svg"
+            src="/home/logo.svg"
             alt="Layer 2"
-            className="w-1/2 h-1/2 object-contain"
+            className="w-[40%] h-[40%] object-contain"
           />
         </div>
 
@@ -110,7 +110,7 @@ const HomePage = () => {
             transition: "transform 0.1s ease-out",
           }}
         >
-          <p className="font-heading text-kushiBlue px-6 pb-12 sm:px-6 sm:pb-16 lg:text-5xl text-6xl leading-tight tracking-wide mb-3">
+          <p className="font-heading text-kushiBlue px-6 pb-12 sm:px-6 sm:pb-16 lg:text-4xl text-3xl leading-tight tracking-wide mb-20">
             Japan through our lens.
           </p>
         </div>
@@ -122,7 +122,11 @@ const HomePage = () => {
         <div
           className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
           style={{
-            transform: `translateY(${(scrollY - (typeof window !== "undefined" ? window.innerHeight : 0)) * 0.2}px)`,
+            transform: `translateY(${
+              (scrollY -
+                (typeof window !== "undefined" ? window.innerHeight : 0)) *
+              0.2
+            }px)`,
             transition: "transform 0.1s ease-out",
           }}
         >
@@ -138,7 +142,11 @@ const HomePage = () => {
           className="flex flex-col md:flex-row z-20"
           style={{
             height: "calc(100vh - 100px)",
-            transform: `translateY(${(scrollY - (typeof window !== "undefined" ? window.innerHeight : 0)) * 0.15}px)`,
+            transform: `translateY(${
+              (scrollY -
+                (typeof window !== "undefined" ? window.innerHeight : 0)) *
+              0.15
+            }px)`,
             transition: "transform 0.1s ease-out",
           }}
         >
@@ -167,7 +175,10 @@ const HomePage = () => {
         </div>
 
         {/* Button at Bottom - Fixed height */}
-        <div className="relative z-20 flex justify-center items-start" style={{ height: "100px" }}>
+        <div
+          className="relative z-20 flex justify-center items-start"
+          style={{ height: "100px" }}
+        >
           <button className="bg-rabataFlame hover:bg-reishyRed text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 text-lg tracking-wide">
             Explore Our Story
           </button>
@@ -180,10 +191,15 @@ const HomePage = () => {
         {/* Sticky/Fixed viewport */}
         <div className="sticky top-0 w-full h-screen bg-background overflow-hidden z-30">
           {/* Background Layer - layer1.svg with parallax */}
-          <div 
+          <div
             className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
             style={{
-              transform: `translateY(${(scrollY - (typeof window !== "undefined" ? window.innerHeight : 0) * 2) * 0.1}px)`,
+              transform: `translateY(${
+                (scrollY -
+                  (typeof window !== "undefined" ? window.innerHeight : 0) *
+                    2) *
+                0.1
+              }px)`,
               transition: "transform 0.1s ease-out",
             }}
           >
@@ -195,15 +211,25 @@ const HomePage = () => {
           </div>
 
           {/* Vinyl image - Rotates and has parallax movement */}
-          <div 
-            className="absolute top-0 right-0 w-[60%] md:w-[40%] z-10"
+          <div
+            className="absolute top-20 right-0 w-[90%] md:w-[40%] z-10"
             style={{
-              transform: `translate(50%, ${(scrollY - (typeof window !== "undefined" ? window.innerHeight : 0) * 2) * 0.05}px) rotate(${(scrollY - (typeof window !== "undefined" ? window.innerHeight : 0) * 2) * 0.15}deg)`,
+              transform: `translate(50%, ${
+                (scrollY -
+                  (typeof window !== "undefined" ? window.innerHeight : 0) *
+                    2) *
+                0.05
+              }px) rotate(${
+                (scrollY -
+                  (typeof window !== "undefined" ? window.innerHeight : 0) *
+                    2) *
+                0.15
+              }deg)`,
               transition: "transform 0.05s linear",
             }}
           >
             <img
-              src="/home/vinyl-full.png"
+              src="/home/vinyl.png"
               alt="Vinyl"
               className="w-full h-full object-contain"
               style={{
@@ -214,16 +240,20 @@ const HomePage = () => {
 
           {/* Calculate scroll progress for this section */}
           {(() => {
-            const windowHeight = typeof window !== "undefined" ? window.innerHeight : 0;
+            const windowHeight =
+              typeof window !== "undefined" ? window.innerHeight : 0;
             const sectionStart = windowHeight * 2;
             const sectionScroll = scrollY - sectionStart;
             const sectionHeight = windowHeight * 4;
-            const progress = Math.max(0, Math.min(1, sectionScroll / sectionHeight));
-            
+            const progress = Math.max(
+              0,
+              Math.min(1, sectionScroll / sectionHeight)
+            );
+
             // Each text gets more space - transitions happen at 0.25, 0.5, 0.75
             let textIndex = 0;
             let textProgress = 0;
-            
+
             if (progress < 0.3) {
               textIndex = 0;
               textProgress = 0;
@@ -244,53 +274,81 @@ const HomePage = () => {
             return (
               <>
                 {/* Text Section 1 */}
-                <div 
+                <div
                   className="absolute bottom-0 left-0 p-8 md:p-16 max-w-2xl z-20"
                   style={{
                     opacity: textIndex === 0 ? 1 - textProgress : 0,
-                    transform: `translateY(${textIndex === 0 ? textProgress * -80 : -80}px)`,
-                    transition: "transform 0.1s ease-out, opacity 0.3s ease-out",
+                    transform: `translateY(${
+                      textIndex === 0 ? textProgress * -80 : -80
+                    }px)`,
+                    transition:
+                      "transform 0.1s ease-out, opacity 0.3s ease-out",
                   }}
                 >
                   <h2 className="font-heading text-kushiBlue text-3xl md:text-5xl font-bold mb-4 leading-tight">
                     Experience the Sound of Japan
                   </h2>
                   <p className="text-sage text-lg md:text-xl leading-relaxed">
-                    Discover our curated collection of traditional and modern Japanese music.
+                    Discover our curated collection of traditional and modern
+                    Japanese music.
                   </p>
                 </div>
 
                 {/* Text Section 2 */}
-                <div 
+                <div
                   className="absolute bottom-0 left-0 p-8 md:p-16 max-w-2xl z-20"
                   style={{
-                    opacity: textIndex === 1 ? 1 - textProgress : textIndex === 0 ? textProgress : 0,
-                    transform: `translateY(${textIndex === 1 ? textProgress * -80 : textIndex === 0 ? (1 - textProgress) * 80 : textIndex === 2 ? -80 : 80}px)`,
-                    transition: "transform 0.1s ease-out, opacity 0.3s ease-out",
+                    opacity:
+                      textIndex === 1
+                        ? 1 - textProgress
+                        : textIndex === 0
+                        ? textProgress
+                        : 0,
+                    transform: `translateY(${
+                      textIndex === 1
+                        ? textProgress * -80
+                        : textIndex === 0
+                        ? (1 - textProgress) * 80
+                        : textIndex === 2
+                        ? -80
+                        : 80
+                    }px)`,
+                    transition:
+                      "transform 0.1s ease-out, opacity 0.3s ease-out",
                   }}
                 >
                   <h2 className="font-heading text-kushiBlue text-3xl md:text-5xl font-bold mb-4 leading-tight">
                     Authentic Japanese Cuisine
                   </h2>
                   <p className="text-sage text-lg md:text-xl leading-relaxed">
-                    Crafted with tradition, served with passion. Every dish tells a story.
+                    Crafted with tradition, served with passion. Every dish
+                    tells a story.
                   </p>
                 </div>
 
                 {/* Text Section 3 */}
-                <div 
+                <div
                   className="absolute bottom-0 left-0 p-8 md:p-16 max-w-2xl z-20"
                   style={{
-                    opacity: textIndex === 2 ? 1 : textIndex === 1 ? textProgress : 0,
-                    transform: `translateY(${textIndex === 2 ? 0 : textIndex === 1 ? (1 - textProgress) * 80 : 80}px)`,
-                    transition: "transform 0.1s ease-out, opacity 0.3s ease-out",
+                    opacity:
+                      textIndex === 2 ? 1 : textIndex === 1 ? textProgress : 0,
+                    transform: `translateY(${
+                      textIndex === 2
+                        ? 0
+                        : textIndex === 1
+                        ? (1 - textProgress) * 80
+                        : 80
+                    }px)`,
+                    transition:
+                      "transform 0.1s ease-out, opacity 0.3s ease-out",
                   }}
                 >
                   <h2 className="font-heading text-kushiBlue text-3xl md:text-5xl font-bold mb-4 leading-tight">
                     A Journey Through Culture
                   </h2>
                   <p className="text-sage text-lg md:text-xl leading-relaxed">
-                    Where every moment is an immersion into the beauty of Japanese heritage.
+                    Where every moment is an immersion into the beauty of
+                    Japanese heritage.
                   </p>
                 </div>
               </>
