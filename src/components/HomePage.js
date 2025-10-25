@@ -90,15 +90,16 @@ const HomePage = () => {
           }}
         >
           <p
-            className="font-heading text-kushi-blue px-8 pb-12 sm:px-12 sm:pb-16 text-base sm:text-lg md:text-xl leading-relaxed tracking-wide text-[2rem] font-bold mb-[2rem]"
+            className="font-heading text-kushi-blue px-8 pb-12 sm:px-12 sm:pb-16 lg:text-5xl text-3xl leading-relaxed tracking-wide font-bold mb-40"
             style={{
-              marginLeft: "5%",
-              marginRight: "5%",
+              // marginLeft: "10%",
+              // marginRight: "10%",
+              // marginBottom: "7%",
               //   marginBottom: "2%",
             }}
           >
             {/* Rooted in tradition. Inspired by seasons. <br /> */}
-            Welcome to an authentic taste of Japan.
+            Japan Through Our Lens.
           </p>
         </div>
       </div>
