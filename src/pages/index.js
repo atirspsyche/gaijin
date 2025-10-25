@@ -39,7 +39,6 @@ const IndexPage = () => {
         >
           <div
             className="flex items-center h-full "
-            style={{ gap: "40px", padding: "0 20px" }}
           >
             <button
               onClick={() => setCurrentPage("home")}

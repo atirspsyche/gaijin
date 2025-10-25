@@ -14,19 +14,19 @@ const MenuPage = () => {
       {/* Hero Section Container - Takes up first viewport */}
       <div className="relative w-full h-screen overflow-hidden">
         {/* Image Background & Overlay - Static (no parallax) */}
-        <div className="absolute inset-0 w-full h-full">
+        <div className="absolute inset-0 w-full h-full ">
           <img
             src="/menu/bg-img.jpg"
             alt="Menu Background"
-            className="absolute inset-0 w-full h-full object-cover z-[1]"
+            className="absolute inset-0 w-full h-full object-cover z-1"
           />
           {/* Black Gradient Overlay */}
-          <div className="absolute inset-0 z-[2] bg-gradient-to-t from-zen-shadow/100 via-black/70 to-black/0" />
+          <div className="absolute inset-0 z-20 bg-linear-to-t from-zenShadow via-black/70 to-black/0" />
         </div>
 
         {/* Content with parallax */}
         <div
-          className="absolute inset-0 flex flex-col justify-between items-center z-[3]"
+          className="absolute inset-0 flex flex-col justify-between items-center z-3"
           style={{
             padding: "4rem",
             transform: `translateY(${scrollY * 0.8}px)`,
@@ -38,7 +38,7 @@ const MenuPage = () => {
 
           {/* Center - Menu Heading */}
           <h1
-            className="font-heading text-zen-light text-5xl font-bold tracking-wider text-center m-0"
+            className="font-heading text-zenLight text-5xl font-bold tracking-wider text-center m-0"
             style={{
               textShadow: "2px 2px 8px rgba(0, 0, 0, 0.8)",
             }}
@@ -48,7 +48,7 @@ const MenuPage = () => {
 
           {/* Bottom - One-liner text */}
           <p
-            className="text-zen-light text-xl font-light tracking-wide text-center max-w-4xl leading-relaxed"
+            className="text-zenLight text-xl font-light tracking-wide text-center max-w-4xl leading-relaxed"
             style={{
               textShadow: "1px 1px 4px rgba(0, 0, 0, 0.8)",
             }}
@@ -59,7 +59,7 @@ const MenuPage = () => {
 
           {/* Scroll Down Button */}
           <button
-            className="text-rabata-flame text-sm font-medium tracking-wider uppercase flex flex-col items-center gap-2 animate-bounce cursor-pointer bg-transparent border-none"
+            className="text-rabataFlame text-sm font-medium tracking-wider uppercase flex flex-col items-center gap-2 animate-bounce cursor-pointer bg-transparent border-none"
             onClick={() => {
               window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
             }}
@@ -86,9 +86,9 @@ const MenuPage = () => {
       </div>
 
       {/* Scrollable Content Section - Second viewport */}
-      <div className="relative w-full h-screen bg-zen-light flex items-center justify-center">
+      <div className="relative w-full h-screen bg-zenLight flex items-center justify-center">
         <div className="text-center">
-          <h2 className="font-heading text-kushi-blue text-4xl font-bold mb-4">
+          <h2 className="font-heading text-kushiBlue text-4xl font-bold mb-4">
             Menu Content Coming Soon
           </h2>
           <p className="text-sage text-xl">
