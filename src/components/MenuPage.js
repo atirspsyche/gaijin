@@ -1,272 +1,102 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const MenuPage = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
-      {/* Menu Page Background */}
-      <div
-        className="absolute inset-0 w-full h-full"
-        style={{
-          backgroundColor: "#F5F0E8",
-          width: "100vw",
-          height: "100vh",
-        }}
-      />
+      {/* Hero Section Container - Takes up first viewport */}
+      <div className="relative w-full h-screen overflow-hidden">
+        {/* Image Background & Overlay - Static (no parallax) */}
+        <div className="absolute inset-0 w-full h-full ">
+          <img
+            src="/menu/bg-img.jpg"
+            alt="Menu Background"
+            className="absolute inset-0 w-full h-full object-cover z-1"
+          />
+          {/* Black Gradient Overlay */}
+          <div className="absolute inset-0 z-20 bg-linear-to-t from-zenShadow via-black/70 to-black/0" />
+        </div>
 
-      {/* Menu Page Content */}
-      <div
-        className="absolute inset-0 w-full h-full overflow-y-auto"
-        style={{
-          paddingTop: "120px",
-          paddingBottom: "60px",
-        }}
-      >
+        {/* Content with parallax */}
         <div
-          className="mx-auto"
+          className="absolute inset-0 flex flex-col justify-between items-center z-3"
           style={{
-            maxWidth: "1000px",
-            padding: "0 40px",
+            padding: "4rem",
+            transform: `translateY(${scrollY * 0.8}px)`,
+            transition: "transform 0.1s ease-out",
           }}
         >
-          {/* Hero Section */}
-          <div
+          {/* Top Spacer */}
+          <div />
+
+          {/* Center - Menu Heading */}
+          <h1
+            className="font-heading text-zenLight text-5xl font-bold tracking-wider text-center m-0"
             style={{
-              textAlign: "center",
-              marginBottom: "60px",
+              textShadow: "2px 2px 8px rgba(0, 0, 0, 0.8)",
             }}
           >
-            <h1
-              style={{
-                fontSize: "48px",
-                fontWeight: "700",
-                color: "#5C4D3C",
-                marginBottom: "20px",
-                letterSpacing: "1px",
-              }}
-            >
-              Our Menu
-            </h1>
-            <p
-              style={{
-                fontSize: "20px",
-                color: "#8B7355",
-                lineHeight: "1.8",
-                maxWidth: "700px",
-                margin: "0 auto",
-              }}
-            >
-              Discover our carefully curated selection of traditional Japanese
-              dishes, crafted with authenticity and care.
-            </p>
-          </div>
+            Our Menu
+          </h1>
 
-          {/* Menu Categories */}
-          <div style={{ display: "grid", gap: "40px" }}>
-            {/* Appetizers */}
-            <div
-              style={{
-                backgroundColor: "rgba(228, 220, 202, 0.5)",
-                padding: "30px",
-                borderRadius: "20px",
-              }}
-            >
-              <h2
-                style={{
-                  fontSize: "32px",
-                  fontWeight: "600",
-                  color: "#5C4D3C",
-                  marginBottom: "24px",
-                  borderBottom: "2px solid #C9C0A9",
-                  paddingBottom: "10px",
-                }}
-              >
-                前菜 Appetizers
-              </h2>
-              <div style={{ display: "grid", gap: "20px" }}>
-                <MenuItem
-                  name="Edamame"
-                  description="Steamed young soybeans with sea salt"
-                  price="$6"
-                />
-                <MenuItem
-                  name="Gyoza"
-                  description="Pan-fried dumplings with pork and vegetables"
-                  price="$8"
-                />
-                <MenuItem
-                  name="Agedashi Tofu"
-                  description="Lightly fried tofu in dashi broth"
-                  price="$7"
-                />
-              </div>
-            </div>
+          {/* Bottom - One-liner text */}
+          <p
+            className="text-zenLight text-xl font-light tracking-wide text-center max-w-4xl leading-relaxed"
+            style={{
+              textShadow: "1px 1px 4px rgba(0, 0, 0, 0.8)",
+            }}
+          >
+            Experience the authentic flavors of Japan, crafted with tradition
+            and passion
+          </p>
 
-            {/* Sushi & Sashimi */}
-            <div
-              style={{
-                backgroundColor: "rgba(228, 220, 202, 0.5)",
-                padding: "30px",
-                borderRadius: "20px",
-              }}
+          {/* Scroll Down Button */}
+          <button
+            className="text-rabataFlame text-sm font-medium tracking-wider uppercase flex flex-col items-center gap-2 animate-bounce cursor-pointer bg-transparent border-none"
+            onClick={() => {
+              window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+            }}
+            // style={{
+            //   textShadow: "1px 1px 4px rgba(0, 0, 0, 0.8)",
+            // }}
+          >
+            <span>Scroll Down</span>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <h2
-                style={{
-                  fontSize: "32px",
-                  fontWeight: "600",
-                  color: "#5C4D3C",
-                  marginBottom: "24px",
-                  borderBottom: "2px solid #C9C0A9",
-                  paddingBottom: "10px",
-                }}
-              >
-                寿司 Sushi & Sashimi
-              </h2>
-              <div style={{ display: "grid", gap: "20px" }}>
-                <MenuItem
-                  name="Chef's Omakase"
-                  description="Selection of seasonal sushi and sashimi"
-                  price="$48"
-                />
-                <MenuItem
-                  name="Tuna Sashimi"
-                  description="Fresh bluefin tuna, thinly sliced"
-                  price="$22"
-                />
-                <MenuItem
-                  name="Rainbow Roll"
-                  description="California roll topped with assorted fish"
-                  price="$18"
-                />
-              </div>
-            </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
 
-            {/* Main Dishes */}
-            <div
-              style={{
-                backgroundColor: "rgba(228, 220, 202, 0.5)",
-                padding: "30px",
-                borderRadius: "20px",
-              }}
-            >
-              <h2
-                style={{
-                  fontSize: "32px",
-                  fontWeight: "600",
-                  color: "#5C4D3C",
-                  marginBottom: "24px",
-                  borderBottom: "2px solid #C9C0A9",
-                  paddingBottom: "10px",
-                }}
-              >
-                主菜 Main Dishes
-              </h2>
-              <div style={{ display: "grid", gap: "20px" }}>
-                <MenuItem
-                  name="Tonkatsu"
-                  description="Breaded pork cutlet with tonkatsu sauce"
-                  price="$24"
-                />
-                <MenuItem
-                  name="Teriyaki Salmon"
-                  description="Grilled salmon with house teriyaki glaze"
-                  price="$26"
-                />
-                <MenuItem
-                  name="Wagyu Sukiyaki"
-                  description="Premium beef hot pot with vegetables"
-                  price="$38"
-                />
-              </div>
-            </div>
-
-            {/* Ramen & Noodles */}
-            <div
-              style={{
-                backgroundColor: "rgba(228, 220, 202, 0.5)",
-                padding: "30px",
-                borderRadius: "20px",
-              }}
-            >
-              <h2
-                style={{
-                  fontSize: "32px",
-                  fontWeight: "600",
-                  color: "#5C4D3C",
-                  marginBottom: "24px",
-                  borderBottom: "2px solid #C9C0A9",
-                  paddingBottom: "10px",
-                }}
-              >
-                麺 Ramen & Noodles
-              </h2>
-              <div style={{ display: "grid", gap: "20px" }}>
-                <MenuItem
-                  name="Tonkotsu Ramen"
-                  description="Rich pork bone broth with chashu pork"
-                  price="$16"
-                />
-                <MenuItem
-                  name="Vegetable Udon"
-                  description="Thick wheat noodles with seasonal vegetables"
-                  price="$14"
-                />
-                <MenuItem
-                  name="Cold Soba"
-                  description="Chilled buckwheat noodles with dipping sauce"
-                  price="$15"
-                />
-              </div>
-            </div>
-          </div>
+      {/* Scrollable Content Section - Second viewport */}
+      <div className="relative w-full h-screen bg-zenLight flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="font-heading text-kushiBlue text-4xl font-bold mb-4">
+            Menu Content Coming Soon
+          </h2>
+          <p className="text-sage text-xl">
+            This is the scrollable section with parallax effect
+          </p>
         </div>
       </div>
     </>
-  );
-};
-
-// Menu Item Component
-const MenuItem = ({ name, description, price }) => {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        gap: "20px",
-      }}
-    >
-      <div style={{ flex: 1 }}>
-        <h3
-          style={{
-            fontSize: "20px",
-            fontWeight: "600",
-            color: "#5C4D3C",
-            marginBottom: "4px",
-          }}
-        >
-          {name}
-        </h3>
-        <p
-          style={{
-            fontSize: "14px",
-            color: "#8B7355",
-            lineHeight: "1.6",
-          }}
-        >
-          {description}
-        </p>
-      </div>
-      <div
-        style={{
-          fontSize: "18px",
-          fontWeight: "600",
-          color: "#8B7355",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {price}
-      </div>
-    </div>
   );
 };
 

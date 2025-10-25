@@ -17,7 +17,7 @@ const IndexPage = () => {
 
       {/* Glass Navigation Bar - Fixed at Top */}
       <nav
-        className="fixed left-1/2 -translate-x-1/2 z-40 pointer-events-auto"
+        className="fixed left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
         style={{ top: "1.3rem" }}
       >
         <GlassSurface
@@ -39,7 +39,6 @@ const IndexPage = () => {
         >
           <div
             className="flex items-center h-full "
-            style={{ gap: "40px", padding: "0 20px" }}
           >
             <button
               onClick={() => setCurrentPage("home")}
