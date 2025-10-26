@@ -4,6 +4,7 @@ import Stack from "./StackCard/StackCard";
 
 const HomePage = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const images = [
     {
@@ -26,9 +27,23 @@ const HomePage = () => {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Set initial value
+    handleResize();
+    
     const handleScroll = () => setScrollY(window.scrollY);
+    
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
   return (
     <>
@@ -87,9 +102,9 @@ const HomePage = () => {
           />
         </div>
 
-        {/* Layer 2: Second SVG - Faster parallax */}
+        {/* Logo - Positioned slightly above center */}
         <div
-          className="absolute inset-0 w-full h-full flex items-center justify-center z-30 pb-20"
+          className="absolute inset-0 w-full h-full flex items-center justify-center z-30 pb-20 lg:pb-32"
           style={{
             transform: `translateY(${scrollY * 0.6}px)`,
             transition: "transform 0.1s ease-out",
@@ -97,120 +112,62 @@ const HomePage = () => {
         >
           <img
             src="/home/logo.svg"
-            alt="Layer 2"
-            className="w-[40%] h-[40%] object-contain"
+            alt="Gaijin Logo"
+            className="w-[200px] h-[200px] lg:w-[300px] lg:h-[300px] object-contain"
           />
         </div>
 
-        {/* Hero Text Overlay - Fastest parallax for foreground feel */}
+        {/* Text Content - Positioned at bottom */}
         <div
-          className="relative inset-0 w-full h-full pointer-events-none z-40 flex flex-col justify-end text-center"
+          className="absolute bottom-0 left-0 right-0 flex flex-col items-center text-center pointer-events-none z-30 px-6 pb-6 lg:pb-12"
           style={{
-            transform: `translateY(${scrollY * 0.8}px)`,
+            transform: `translateY(${scrollY * 0.6}px)`,
             transition: "transform 0.1s ease-out",
           }}
         >
-          {/* <p className="font-body text-kushiBlue px-6  sm:px-6 sm:pb-16 lg:text-3xl text-xl leading-tight tracking-wide mb-20">
-            Japan through our lens.
-          </p> */}
-
-          <p className="font-heading text-sage px-6 sm:px-6 sm:pb-16 lg:pb-4 lg:text-7xl text-5xl leading-tight tracking-tight">
-            Reservation
-          </p>
-          <p className="font-body text-gray-800 px-6 pb-8 sm:px-6 sm:pb-16 lg:text-3xl text-lg leading-tight tracking-wide">
-            +91 85916 15552
-          </p>
-          <p className="font-heading text-sage px-6 sm:px-6 sm:pb-16 lg:pb-4 lg:text-7xl text-4xl leading-tight tracking-wide">
-            Tue - Sun
-          </p>
-          <p className="font-body text-gray-800 px-6 pb-8 sm:px-6 sm:pb-16 lg:text-3xl text-lg leading-tight tracking-wide">
-            12:00pm to 3:00pm and 7:00pm to 1:30am
-          </p>
-          <p className="font-body text-gray-800 px-6 pb-4 sm:px-6 sm:pb-16 lg:text-3xl sm:text-base  leading-tight tracking-wide">
-            Lotia Palace, Linking Rd, opp. Citi Bank, Khar, Khar West, Mumbai,
-            Maharashtra 400052
-          </p>
-          {/* <div className="relative flex inset-0 flex-row justify-center items-center">
-            <div className="items-center justify-center">
-              <img src="/home/location-icon.png" className="w-1/4" />
-            </div>
-            <div></div>
-          </div> */}
-        </div>
-      </div>
-
-      {/* Scrollable Content Section - Second viewport */}
-      <div className="relative w-full h-screen bg-reishyRed flex flex-col overflow-hidden">
-        {/* Background Image Layer with parallax */}
-        <div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
-          style={{
-            transform: `translateY(${
-              (scrollY -
-                (typeof window !== "undefined" ? window.innerHeight : 0)) *
-              0.2
-            }px)`,
-            transition: "transform 0.1s ease-out",
-          }}
-        >
-          <img
-            src="/home/layer1.svg"
-            alt="Layer 1"
-            className="w-full h-full object-cover opacity-80"
-          />
-        </div>
-
-        {/* Content Container - Card Stack and Text with parallax */}
-        <div
-          className="flex flex-col md:flex-row z-20"
-          style={{
-            height: "calc(100vh - 100px)",
-            transform: `translateY(${
-              (scrollY -
-                (typeof window !== "undefined" ? window.innerHeight : 0)) *
-              0.15
-            }px)`,
-            transition: "transform 0.1s ease-out",
-          }}
-        >
-          {/* Card Stack Section */}
-          <div className="flex items-start justify-center lg:justify-center lg:items-center w-full md:w-1/2 h-[65vh] md:h-full order-2 md:order-1 pr-5">
-            <Stack
-              randomRotation={false}
-              sensitivity={300}
-              sendToBackOnClick={false}
-              cardDimensions={
-                typeof window !== "undefined" && window.innerWidth < 768
-                  ? { width: "80vw", height: "40vh" }
-                  : { width: "30vw", height: "50vh" }
-              }
-              cardsData={images}
-            />
-          </div>
-          {/* Text Section */}
-          <div className="flex items-end justify-center w-full md:w-1/2 h-[35vh] md:h-full order-1 md:order-2">
-            <div className="px-8 py-4 text-center md:text-left">
-              <p className="font-heading text-zenLight text-4xl lg:7xl md:text-4xl mb-4 leading-tight">
-                Japan through our lens
+          <div className="flex flex-col items-center space-y-4 lg:space-y-6 max-w-4xl w-full">
+            <div className="space-y-2">
+              <p className="font-heading text-sage lg:text-7xl text-5xl leading-tight tracking-tight">
+                Reservation
+              </p>
+              <p className="font-body text-gray-800 lg:text-3xl text-lg leading-tight tracking-wide">
+                +91 85916 15552
               </p>
             </div>
-          </div>
-        </div>
 
-        {/* Button at Bottom - Fixed height */}
-        <div
-          className="relative z-20 flex justify-center items-start"
-          style={{ height: "100px" }}
-        >
-          <button className="bg-sage hover:bg-reishyRed text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 text-lg tracking-wide">
-            Explore Our Story
-          </button>
+            <div className="space-y-2">
+              <p className="font-heading text-sage lg:text-7xl text-4xl leading-tight tracking-wide">
+                Tue - Sun
+              </p>
+              <p className="font-body text-gray-800 lg:text-3xl text-lg leading-tight tracking-wide">
+                12:00pm to 3:00pm and 7:00pm to 1:30am
+              </p>
+            </div>
+
+            {/* Address with location icon */}
+            <a 
+              href="https://maps.app.goo.gl/iDBGcRW5Lg2nU4Pj6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-row justify-center items-center gap-3 max-w-2xl pointer-events-auto cursor-pointer group no-underline transition-all duration-300"
+            >
+              <img 
+                src="/home/location-icon.png" 
+                alt="Location" 
+                className="w-6 h-6 lg:w-8 lg:h-8 flex-shrink-0" 
+              />
+              <p className="font-body text-gray-800 lg:text-3xl text-base leading-tight tracking-wide text-left group-hover:underline decoration-sage decoration-2 underline-offset-4">
+                Lotia Palace, Linking Rd, opp. Citi Bank, Khar, Khar West, Mumbai,
+                Maharashtra 400052
+              </p>
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Third viewport - Pinned section with rotating vinyl and changing text */}
-      {/* Container for pinned effect - takes 4x viewport height for scrolling */}
-      <div className="relative w-full" style={{ height: "400vh" }}>
+      {/* Second viewport - Pinned section with rotating vinyl and changing text */}
+      {/* Container for pinned effect - takes 2x viewport height for scrolling */}
+      <div className="relative w-full" style={{ height: "200vh" }}>
         {/* Sticky/Fixed viewport */}
         <div className="sticky top-0 w-full h-screen bg-background overflow-hidden z-30">
           {/* Background Layer - layer1.svg with parallax */}
@@ -219,8 +176,7 @@ const HomePage = () => {
             style={{
               transform: `translateY(${
                 (scrollY -
-                  (typeof window !== "undefined" ? window.innerHeight : 0) *
-                    2) *
+                  (typeof window !== "undefined" ? window.innerHeight : 0)) *
                 0.1
               }px)`,
               transition: "transform 0.1s ease-out",
@@ -239,13 +195,11 @@ const HomePage = () => {
             style={{
               transform: `translate(50%, ${
                 (scrollY -
-                  (typeof window !== "undefined" ? window.innerHeight : 0) *
-                    2) *
+                  (typeof window !== "undefined" ? window.innerHeight : 0)) *
                 0.05
               }px) rotate(${
                 (scrollY -
-                  (typeof window !== "undefined" ? window.innerHeight : 0) *
-                    2) *
+                  (typeof window !== "undefined" ? window.innerHeight : 0)) *
                 0.15
               }deg)`,
               transition: "transform 0.05s linear",
@@ -265,31 +219,36 @@ const HomePage = () => {
           {(() => {
             const windowHeight =
               typeof window !== "undefined" ? window.innerHeight : 0;
-            const sectionStart = windowHeight * 2;
+            const sectionStart = windowHeight;
             const sectionScroll = scrollY - sectionStart;
-            const sectionHeight = windowHeight * 4;
+            const sectionHeight = windowHeight * 2;
             const progress = Math.max(
               0,
               Math.min(1, sectionScroll / sectionHeight)
             );
 
-            // Each text gets more space - transitions happen at 0.25, 0.5, 0.75
+            // Text transitions - ensuring third text is fully visible before section ends
             let textIndex = 0;
             let textProgress = 0;
 
-            if (progress < 0.3) {
+            if (progress < 0.25) {
+              // Text 1 visible
               textIndex = 0;
               textProgress = 0;
-            } else if (progress < 0.4) {
+            } else if (progress < 0.35) {
+              // Transition from text 1 to text 2
               textIndex = 0;
-              textProgress = (progress - 0.3) / 0.1; // Transition from text 1 to 2
+              textProgress = (progress - 0.25) / 0.1;
+            } else if (progress < 0.55) {
+              // Text 2 visible
+              textIndex = 1;
+              textProgress = 0;
             } else if (progress < 0.65) {
+              // Transition from text 2 to text 3
               textIndex = 1;
-              textProgress = 0;
-            } else if (progress < 0.75) {
-              textIndex = 1;
-              textProgress = (progress - 0.65) / 0.1; // Transition from text 2 to 3
+              textProgress = (progress - 0.55) / 0.1;
             } else {
+              // Text 3 visible - stays until end (35% of total scroll)
               textIndex = 2;
               textProgress = 0;
             }
@@ -377,6 +336,75 @@ const HomePage = () => {
               </>
             );
           })()}
+        </div>
+      </div>
+
+      {/* Third viewport - Card Stack Section */}
+      <div className="relative w-full h-screen bg-reishyRed flex flex-col overflow-hidden z-30">
+        {/* Background Image Layer with parallax */}
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
+          style={{
+            transform: `translateY(${
+              (scrollY -
+                (typeof window !== "undefined" ? window.innerHeight : 0) * 3) *
+              0.2
+            }px)`,
+            transition: "transform 0.1s ease-out",
+          }}
+        >
+          <img
+            src="/home/layer1.svg"
+            alt="Layer 1"
+            className="w-full h-full object-cover opacity-80"
+          />
+        </div>
+
+        {/* Content Container - Card Stack and Text with parallax */}
+        <div
+          className="flex flex-col md:flex-row z-20"
+          style={{
+            height: "calc(100vh - 100px)",
+            transform: `translateY(${
+              (scrollY -
+                (typeof window !== "undefined" ? window.innerHeight : 0) * 3) *
+              0.15
+            }px)`,
+            transition: "transform 0.1s ease-out",
+          }}
+        >
+          {/* Card Stack Section */}
+          <div className="flex items-start justify-center lg:justify-center lg:items-center w-full md:w-1/2 h-[65vh] md:h-full order-2 md:order-1 pr-5">
+            <Stack
+              randomRotation={false}
+              sensitivity={300}
+              sendToBackOnClick={false}
+              cardDimensions={
+                isMobile
+                  ? { width: "90vw", height: "55vh" }
+                  : { width: "30vw", height: "50vh" }
+              }
+              cardsData={images}
+            />
+          </div>
+          {/* Text Section */}
+          <div className="flex items-end justify-center w-full md:w-1/2 h-[35vh] md:h-full order-1 md:order-2">
+            <div className="px-8 py-4 text-center md:text-left">
+              <p className="font-heading text-zenLight text-4xl lg:7xl md:text-4xl mb-4 leading-tight">
+                Japan through our lens
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Button at Bottom - Fixed height */}
+        <div
+          className="relative z-20 flex justify-center items-start"
+          style={{ height: "100px" }}
+        >
+          <button className="bg-sage hover:bg-reishyRed text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 text-lg tracking-wide">
+            Explore Our Story
+          </button>
         </div>
       </div>
     </>
