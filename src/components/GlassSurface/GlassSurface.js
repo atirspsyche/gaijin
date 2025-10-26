@@ -150,23 +150,20 @@ const GlassSurface = ({
       return false;
     }
 
-    // Only exclude very old browsers or known incompatible ones
-    const isOldIE = /MSIE|Trident/.test(navigator.userAgent);
-    
-    if (isOldIE) {
+    // Test if backdrop-filter with SVG filters is supported
+    try {
+      const div = document.createElement("div");
+      div.style.backdropFilter = "url(#test)";
+      const supported = div.style.backdropFilter !== "";
+      
+      // Also exclude known incompatible browsers
+      const isFirefox = /Firefox/.test(navigator.userAgent);
+      const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+      
+      return supported && !isFirefox && !isSafari;
+    } catch (e) {
       return false;
     }
-
-    // For modern browsers, check if backdrop-filter is supported
-    const div = document.createElement("div");
-    div.style.backdropFilter = "blur(1px)";
-    const supportsBackdrop = div.style.backdropFilter !== "";
-    
-    // Also check webkit prefix
-    div.style.webkitBackdropFilter = "blur(1px)";
-    const supportsWebkitBackdrop = div.style.webkitBackdropFilter !== "";
-    
-    return supportsBackdrop || supportsWebkitBackdrop;
   };
 
   const containerStyle = {
