@@ -150,17 +150,23 @@ const GlassSurface = ({
       return false;
     }
 
-    const isWebkit =
-      /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
-    const isFirefox = /Firefox/.test(navigator.userAgent);
-
-    if (isWebkit || isFirefox) {
+    // Only exclude very old browsers or known incompatible ones
+    const isOldIE = /MSIE|Trident/.test(navigator.userAgent);
+    
+    if (isOldIE) {
       return false;
     }
 
+    // For modern browsers, check if backdrop-filter is supported
     const div = document.createElement("div");
-    div.style.backdropFilter = `url(#${filterId})`;
-    return div.style.backdropFilter !== "";
+    div.style.backdropFilter = "blur(1px)";
+    const supportsBackdrop = div.style.backdropFilter !== "";
+    
+    // Also check webkit prefix
+    div.style.webkitBackdropFilter = "blur(1px)";
+    const supportsWebkitBackdrop = div.style.webkitBackdropFilter !== "";
+    
+    return supportsBackdrop || supportsWebkitBackdrop;
   };
 
   const containerStyle = {
