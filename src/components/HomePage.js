@@ -89,7 +89,7 @@ const HomePage = () => {
 
         {/* Layer 2: Second SVG - Faster parallax */}
         <div
-          className="absolute inset-0 w-full h-full flex items-center justify-center z-30"
+          className="absolute inset-0 w-full h-full flex items-center justify-center z-30 pb-20"
           style={{
             transform: `translateY(${scrollY * 0.6}px)`,
             transition: "transform 0.1s ease-out",
@@ -110,14 +110,37 @@ const HomePage = () => {
             transition: "transform 0.1s ease-out",
           }}
         >
-          <p className="font-heading text-kushiBlue px-6 pb-12 sm:px-6 sm:pb-16 lg:text-4xl text-3xl leading-tight tracking-wide mb-20">
+          {/* <p className="font-body text-kushiBlue px-6  sm:px-6 sm:pb-16 lg:text-3xl text-xl leading-tight tracking-wide mb-20">
             Japan through our lens.
+          </p> */}
+
+          <p className="font-heading text-sage px-6 sm:px-6 sm:pb-16 lg:pb-4 lg:text-7xl text-5xl leading-tight tracking-tight">
+            Reservation
           </p>
+          <p className="font-body text-gray-800 px-6 pb-8 sm:px-6 sm:pb-16 lg:text-3xl text-lg leading-tight tracking-wide">
+            +91 85916 15552
+          </p>
+          <p className="font-heading text-sage px-6 sm:px-6 sm:pb-16 lg:pb-4 lg:text-7xl text-4xl leading-tight tracking-wide">
+            Tue - Sun
+          </p>
+          <p className="font-body text-gray-800 px-6 pb-8 sm:px-6 sm:pb-16 lg:text-3xl text-lg leading-tight tracking-wide">
+            12:00pm to 3:00pm and 7:00pm to 1:30am
+          </p>
+          <p className="font-body text-gray-800 px-6 pb-4 sm:px-6 sm:pb-16 lg:text-3xl sm:text-base  leading-tight tracking-wide">
+            Lotia Palace, Linking Rd, opp. Citi Bank, Khar, Khar West, Mumbai,
+            Maharashtra 400052
+          </p>
+          {/* <div className="relative flex inset-0 flex-row justify-center items-center">
+            <div className="items-center justify-center">
+              <img src="/home/location-icon.png" className="w-1/4" />
+            </div>
+            <div></div>
+          </div> */}
         </div>
       </div>
 
       {/* Scrollable Content Section - Second viewport */}
-      <div className="relative w-full h-screen bg-kushiBlue flex flex-col overflow-hidden">
+      <div className="relative w-full h-screen bg-reishyRed flex flex-col overflow-hidden">
         {/* Background Image Layer with parallax */}
         <div
           className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
@@ -133,7 +156,7 @@ const HomePage = () => {
           <img
             src="/home/layer1.svg"
             alt="Layer 1"
-            className="w-full h-full object-cover opacity-10"
+            className="w-full h-full object-cover opacity-80"
           />
         </div>
 
@@ -165,10 +188,10 @@ const HomePage = () => {
             />
           </div>
           {/* Text Section */}
-          <div className="flex items-center justify-center w-full md:w-1/2 h-[35vh] md:h-full order-1 md:order-2">
+          <div className="flex items-end justify-center w-full md:w-1/2 h-[35vh] md:h-full order-1 md:order-2">
             <div className="px-8 py-4 text-center md:text-left">
-              <p className="font-heading text-zenLight text-2xl md:text-4xl mb-4 leading-tight">
-                We capture the essence of Japan, one frame at a time.
+              <p className="font-heading text-zenLight text-4xl lg:7xl md:text-4xl mb-4 leading-tight">
+                Japan through our lens
               </p>
             </div>
           </div>
@@ -179,7 +202,7 @@ const HomePage = () => {
           className="relative z-20 flex justify-center items-start"
           style={{ height: "100px" }}
         >
-          <button className="bg-rabataFlame hover:bg-reishyRed text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 text-lg tracking-wide">
+          <button className="bg-sage hover:bg-reishyRed text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 text-lg tracking-wide">
             Explore Our Story
           </button>
         </div>
